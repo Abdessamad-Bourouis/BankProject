@@ -1,0 +1,92 @@
+<div class="bg-white shadow flex h-20 px-11 justify-between items-center">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight  text-gray-900">Customer Details</h1>
+    </div>
+</div>
+
+<div class="overflow-hidden w-[70%] mx-auto my-7 flex flex-col justify-center items-center  bg-white shadow-md sm:rounded-lg">
+  <div class="px-4 py-5 relative sm:px-6">
+    <img *ngIf="customerObj?.image" class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{{customerObj.image}}" alt=""/>
+    <div *ngIf="!customerObj?.image" class="flex justify-center items-center border text-2xl font-bold w-24 h-24 mb-3 rounded-full" [ngClass]="{'bg-red-200':customerObj?.gender=='Female','bg-blue-200':customerObj?.gender=='Male'}">{{getDefaultImage()}}</div>    
+
+    <label for="file"  class="flex items-center absolute cursor-pointer bg-white top-5 right-5 justify-center h-7 w-7 rounded-[50%] ">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 9c-1.626 0-3 1.374-3 3s1.374 3 3 3 3-1.374 3-3-1.374-3-3-3z"></path><path d="M20 5h-2.586l-2.707-2.707A.996.996 0 0 0 14 2h-4a.996.996 0 0 0-.707.293L6.586 5H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2zm-8 12c-2.71 0-5-2.29-5-5s2.29-5 5-5 5 2.29 5 5-2.29 5-5 5z"></path></svg>
+      <input id="file" type="file" (change)="handleUpload($event)" class="hidden" />
+    </label>
+  </div>
+  <div class="w-full">
+    <div class="flex items-center justify-end px-4 ">
+        <button type="button" *ngIf="!edit" (click)="edit=!edit"> 
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 pb-2 fill-slate-500 hover:fill-blue-600" viewBox="0 0 24 24"><path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zM8.999 17H7v-1.999l5.53-5.522 1.999 1.999L8.999 17zm6.473-6.465-1.999-1.999 1.524-1.523 1.999 1.999-1.524 1.523z"></path></svg>
+        </button> 
+        <button type="button" *ngIf="edit" (click)="OnUpdateCustomer()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 pb-2 fill-green-500 hover:fill-green-600" viewBox="0 0 24 24"><path d="m10.575 16.75 7.275-7.275-1.5-1.5-5.775 5.775-2.9-2.9-1.5 1.5ZM12 22.3q-2.125 0-4.012-.812-1.888-.813-3.275-2.2-1.388-1.388-2.2-3.263Q1.7 14.15 1.7 12q0-2.15.813-4.038.812-1.887 2.2-3.275Q6.1 3.3 7.988 2.5 9.875 1.7 12 1.7q2.15 0 4.038.8 1.887.8 3.274 2.187Q20.7 6.075 21.5 7.962q.8 1.888.8 4.038 0 2.15-.8 4.025-.8 1.875-2.188 3.263-1.387 1.387-3.274 2.2Q14.15 22.3 12 22.3Z"/></svg>
+        </button>
+        <button type="button" *ngIf="edit" (click)="initialMethod()" >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 pb-2 fill-gray-500 hover:fill-red-600" viewBox="0 0 24 24"><path d="M8.35 17.15 12 13.5l3.65 3.65 1.5-1.5L13.5 12l3.65-3.65-1.5-1.5L12 10.5 8.35 6.85l-1.5 1.5L10.5 12l-3.65 3.65ZM12 22.3q-2.125 0-4.012-.812-1.888-.813-3.275-2.2-1.388-1.388-2.2-3.263Q1.7 14.15 1.7 12q0-2.15.813-4.038.812-1.887 2.2-3.275Q6.1 3.3 7.988 2.5 9.875 1.7 12 1.7q2.15 0 4.038.8 1.887.8 3.274 2.187Q20.7 6.075 21.5 7.962q.8 1.888.8 4.038 0 2.15-.8 4.025-.8 1.875-2.188 3.263-1.387 1.387-3.274 2.2Q14.15 22.3 12 22.3Z"/></svg>
+        </button>
+    </div>
+   </div>
+  <div class="border-t w-full text-center border-gray-200">
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <div class="text-sm font-bold text-gray-500">First Name</div>
+        <div>
+          <div *ngIf="!edit" class="mt-1 text-sm font-medium text-gray-900 sm:col-span-2 sm:mt-0">{{customerObj?.firstName}}</div>
+          <input type="text" *ngIf="edit"  [value]="customerObj?.firstName" [(ngModel)]="customerObj.firstName" class="bg-white border h-6 p-1 border-gray-300 text-gray-900 text-sm rounded-lg w-56 " required>
+        </div>
+      </div>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <div class="text-sm font-bold text-gray-500">Last Name</div>
+        <div>
+          <div *ngIf="!edit" class="mt-1 text-sm font-medium text-gray-900 sm:col-span-2 sm:mt-0">{{customerObj?.lastName}}</div>
+          <input type="text" *ngIf="edit"  [value]="customerObj?.lastName" [(ngModel)]="customerObj.lastName" class="bg-white border h-6 p-1 border-gray-300 text-gray-900 text-sm rounded-lg w-56 " required>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <div class="text-sm font-bold text-gray-500">Email address</div>
+        <div>
+          <div  *ngIf="!edit" class="mt-1 text-sm font-medium text-gray-900 sm:col-span-2 sm:mt-0">{{customerObj?.email}}</div>
+          <input type="text" *ngIf="edit"  [value]="customerObj?.email" [(ngModel)]="customerObj.email" class="bg-white border h-6 p-1 border-gray-300 text-gray-900 text-sm rounded-lg w-56 " required>
+        </div>
+      </div>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <div class="text-sm font-bold text-gray-500">Gender</div>
+       <div>
+        <div *ngIf="!edit" class="mt-1 text-sm font-medium text-gray-900 sm:col-span-2 sm:mt-0">{{customerObj?.gender}}</div>
+        <div *ngIf="edit" class="flex items-center justify-around mb-4">
+          <select [(ngModel)]="customerObj.gender" class=" border border-gray-300 text-gray-900 text-sm rounded-lg w-56">
+            <option [selected]="customerObj?.gender=='Male'" value="Male">Male</option>
+            <option [selected]="customerObj?.gender=='Female'" value="Female">Female</option>
+          </select>
+        </div>
+      </div>
+      </div>
+      <div class="bg-gray-50 flex justify-start items-center px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <div class="text-sm font-bold text-gray-500">Address</div>
+        <div>
+        <div *ngIf="!edit" class="mt-1 text-sm font-medium text-gray-900 sm:col-span-2 sm:mt-0">{{customerObj?.address}}</div>
+          <input type="text" *ngIf="edit" [(ngModel)]="customerObj.address" [value]="customerObj?.address" class="bg-white border h-6 p-1 border-gray-300 text-gray-900 text-sm rounded-lg w-56 " required>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <div class="text-sm font-bold text-gray-500">Balance</div>
+        <div>
+          <div *ngIf="!edit" class="mt-1 text-sm font-medium text-gray-900 sm:col-span-2 sm:mt-0">{{customerObj?.balance | currency}}</div>
+          <input type="text" *ngIf="edit" [(ngModel)]="customerObj.balance" [value]="customerObj?.balance" class="bg-white border h-6 p-1 border-gray-300 text-gray-900 text-sm rounded-lg w-56 " required>
+        </div>
+      </div>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <div class="text-sm font-bold text-gray-500">Type</div>
+        <div>
+          <div *ngIf="!edit" class="mt-1 text-sm font-medium text-gray-900 sm:col-span-2 sm:mt-0">{{customerObj?.type}}</div>
+          <!-- <input type="text" *ngIf="edit"  [value]="customerObj?.type" [(ngModel)]="customerObj.type" class="bg-white border h-6 p-1 border-gray-300 text-gray-900 text-sm rounded-lg w-56 " required> -->
+          <div *ngIf="edit" class="flex items-center justify-around mb-4">
+            <select [(ngModel)]="customerObj.type" class=" border border-gray-300 text-gray-900 text-sm rounded-lg w-56">
+              <option [selected]="customerObj.type=='checking'" value="checking">Checking</option>
+              <option [selected]="customerObj.type=='savings'" value="savings">Savings</option>
+            </select>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

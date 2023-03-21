@@ -1,0 +1,27 @@
+<div class="bg-white shadow flex h-20 px-11 justify-between items-center">
+    <div >
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">Custmers</h1>
+    </div>
+    <div>
+      <form class="flex items-center w-80">   
+        <div class="relative w-full">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+            </div>
+            <input type="text" id="search" [(ngModel)]="textSearch"  (ngModelChange)="onChange()" [ngModelOptions]="{standalone: true}" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by names, Id Account..." required>
+            <div  class="absolute inset-y-0 right-0 flex items-center pr-3">
+                <svg aria-hidden="true" class="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"></path></svg>
+            </div>
+        </div>
+      </form>
+    </div>
+</div>
+
+<div routerLink="create" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 m-8">
+    <div  class="w-full max-w-sm bg-white border cursor-pointer hover:scale-95 flex justify-center items-center  border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"> 
+        <button class="hover:scale-95">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20"  viewBox="0 96 960 960" ><path d="M453 776h60V610h167v-60H513V376h-60v174H280v60h173v166Zm27.266 200q-82.734 0-155.5-31.5t-127.266-86q-54.5-54.5-86-127.341Q80 658.319 80 575.5q0-82.819 31.5-155.659Q143 347 197.5 293t127.341-85.5Q397.681 176 480.5 176q82.819 0 155.659 31.5Q709 239 763 293t85.5 127Q880 493 880 575.734q0 82.734-31.5 155.5T763 858.316q-54 54.316-127 86Q563 976 480.266 976Zm.234-60Q622 916 721 816.5t99-241Q820 434 721.188 335 622.375 236 480 236q-141 0-240.5 98.812Q140 433.625 140 576q0 141 99.5 240.5t241 99.5Zm-.5-340Z"/></svg>
+        </button>
+    </div>
+    <app-customer-card  *ngFor="let customer of customers; let index = index;" [customer]="customer"></app-customer-card>
+</div>
