@@ -25,10 +25,12 @@ export class CustomerService {
   getCustomerById(Id:String):Observable<Customer>{
     return this._httpClient.get<Customer>(API_URL+`/${Id}`);
   }
-
   searchCustomerByName(name:string):Observable<Customer[]>{
     return this._httpClient.
     get<Customer[]>(API_URL+`?firstName_like=${name}`);
+  }
+  deleteCustomer(_customer:Customer) {
+    return this._httpClient.delete(`${API_URL}/${_customer.id}`);
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CustomerService } from 'src/app/Services/customer.service';
-
+import * as alertify from 'alertifyjs'
 @Component({
   selector: 'app-create-customer',
   templateUrl: './create-customer.component.html',
@@ -8,9 +8,8 @@ import { CustomerService } from 'src/app/Services/customer.service';
 })
 export class CreateCustomerComponent {
 
-  edit=false;
   customerObj:any=
-    { id:'slksjfksh',
+    { id:'',
       firstName:"",
       lastName:"",
       email:"",
@@ -25,7 +24,6 @@ export class CreateCustomerComponent {
 
   initialMethod()
   {
-    this.edit=false;
     this.customerObj=
     { id:"",
       firstName:"",
@@ -46,15 +44,14 @@ export class CreateCustomerComponent {
   }  
        
   CreateCustomer(){  
-    
           this.customerObj.id=this.createGuid();
           console.log(this.customerObj)
           this._customerService.createCustomer(this.customerObj).subscribe()  
-        
+          this.initialMethod();  
+          alertify.success("created successfully")
   }
 
   handleUpload(event:any){
-    this.edit=true;
     let file;
     file = event.target.files[0];
     console.log(file)

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { CustomerService } from 'src/app/Services/customer.service';
 import { Customer } from '../Customer.Model';
-
+import * as alertify from 'alertifyjs'
 @Component({
   selector: 'app-details-customer',
   templateUrl: './details-customer.component.html',
@@ -60,7 +60,7 @@ export class DetailsCustomerComponent implements OnInit{
   OnUpdateCustomer(){
     this.edit=!this.edit;
     this._customerService.updateCustomer(this.customerObj).subscribe(item=>this.customer=item);
-    console.log(this.customerObj)
+    alertify.success("Updated successfully")
   }
   getDefaultImage(){
     return this.customer?.firstName.charAt(0).toUpperCase()+""+this.customer?.lastName.charAt(0).toUpperCase();

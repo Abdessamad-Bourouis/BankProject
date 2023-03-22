@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/Services/customer.service';
 import { Customer } from '../Customer.Model';
+import * as alertify from 'alertifyjs'
 
 @Component({
   selector: 'app-customers',
@@ -21,6 +22,13 @@ export class CustomersComponent  implements OnInit {
                               });  
   }
 
+  delete(customer: Customer) {
+    this._CustomerService.deleteCustomer(customer).subscribe(() => {
+      this.customers = this.customers.filter((p) => p.id !== customer.id);
+      
+    });
+    alertify.error('customer deleted successfully');
+  }
   onChange(){
     console.log(this.textSearch)
     this._CustomerService.searchCustomerByName(this.textSearch).

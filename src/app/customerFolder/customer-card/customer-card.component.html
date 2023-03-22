@@ -1,4 +1,10 @@
 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"> 
+   
+    <div class="flex w-full justify-end items-center">
+        <button (click)="OnRemove()" class="border-2 rounded-[30%] border-red-500 bg-red-50  hover:bg-red-100 px-1 m-1">
+            <svg xmlns="http://www.w3.org/2000/svg"   height="24" viewBox="0 96 960 960" width="24"><path d="M187.181 620.203v-89.261h585.638v89.261H187.181Z"/></svg>
+        </button>
+    </div>
     <div class="flex flex-col items-center pt-4 pb-10">
         <img *ngIf="customer?.image" class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{{customer?.image}}" alt="RB"/>
         <div *ngIf="!customer?.image" class="flex justify-center items-center border text-2xl font-bold w-24 h-24 mb-3 rounded-full" [ngClass]="{'bg-red-200':customer?.gender=='Female','bg-blue-200':customer?.gender=='Male'}">{{getDefaultImage()}}</div>
